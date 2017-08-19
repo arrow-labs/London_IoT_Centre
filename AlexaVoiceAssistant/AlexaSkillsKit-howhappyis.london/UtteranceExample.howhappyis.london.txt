@@ -1,0 +1,8 @@
+getHappinessOfLondonNow now
+getHappinessOfLondonNow this second
+getHappinessOfLondonNow today
+
+getHappinessOfLondonLastMonth for the last
+getHappinessOfLondonLastMonth over the last
+getHappinessOfLondonLastMonth this month
+getHappinessOfLondonLastMonth recently
