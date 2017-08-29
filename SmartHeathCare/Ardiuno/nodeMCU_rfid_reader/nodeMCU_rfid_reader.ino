@@ -19,8 +19,8 @@ GND     = GND
 #define RST_PIN  5  // RST-PIN für RC522 - RFID - SPI - Modul GPIO5 
 #define SS_PIN  4  // SDA-PIN für RC522 - RFID - SPI - Modul GPIO4 
 
-const char *ssid =  "Easton2G";     // change according to your Network - cannot be longer than 32 characters!
-const char *pass =  "Oldhuish55"; // change according to your Network
+const char *ssid =  "***********";     // change according to your Network - cannot be longer than 32 characters!
+const char *pass =  "***********"; // change according to your Network
 
 MFRC522 mfrc522(SS_PIN, RST_PIN); // Create MFRC522 instance
 
