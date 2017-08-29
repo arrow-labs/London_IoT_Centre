@@ -1,7 +1,15 @@
+
 /*
 Many thanks to nikxha from the ESP8266 forum
 */
 
+
+
+#include <ESP8266WiFi.h>
+#include <ESP8266HTTPClient.h>
+#include <WiFiClient.h>
+#include <ESP8266WebServer.h>
+#include <ESP8266mDNS.h>
 #include <ESP8266WiFi.h>
 #include <SPI.h>
 #include "MFRC522.h"
@@ -52,18 +60,47 @@ void setup() {
 void loop() { 
   // Look for new cards
   if ( ! mfrc522.PICC_IsNewCardPresent()) {
-    delay(50);
+    delay(500);
     return;
   }
   // Select one of the cards
   if ( ! mfrc522.PICC_ReadCardSerial()) {
-    delay(50);
+    delay(500);
     return;
   }
   // Show some details of the PICC (that is: the tag/card)
   Serial.print(F("Card UID:"));
   dump_byte_array(mfrc522.uid.uidByte, mfrc522.uid.size);
   Serial.println();
+  //post request
+  if(WiFi.status()== WL_CONNECTED){   //Check WiFi connection status
+ 
+   HTTPClient http;    //Declare object of class HTTPClient
+ 
+   http.begin("http://192.168.1.88:8085/hello");      //Specify request destination
+   http.addHeader("Content-Type", "text/plain");  //Specify content-type header
+ 
+   int httpCode = http.POST(mfrc522.uid.uidByte, mfrc522.uid.size);   //Send the request
+   String payload = http.getString();                  //Get the response payload
+ 
+   Serial.println(httpCode);   //Print HTTP return code
+   Serial.println(payload);    //Print request response payload
+ 
+   http.end();  //Close connection
+ 
+ }else{
+ 
+    Serial.println("Error in WiFi connection");   
+ 
+ }
+ 
+  delay(30000);  //Send a request every 30 seconds
+
+
+
+
+
+  
 }
 
 // Helper routine to dump a byte array as hex values to Serial
